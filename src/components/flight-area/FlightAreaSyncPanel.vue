@@ -2,8 +2,8 @@
   <div class="flight-area-sync-panel p10 flex-row flex-align-center" >
     <RobotFilled class="fz30" twoToneColor="red" fill="#00ff00"/>
     <div class="ml20 mr10 flex-column" @click="switchPanel">
-      <div class="fz18">Sync Across Devices</div>
-      <div v-if="syncDevicesCount > 0"><a-spin /> Syncing to {{ syncDevicesCount }} devices</div>
+      <div class="fz18">设备同步</div>
+      <div v-if="syncDevicesCount > 0"><a-spin /> 正在同步到 {{ syncDevicesCount }} 台设备</div>
     </div>
     <RightOutlined class="fz18" @click="switchPanel"/>
     <FlightAreaDevicePanel v-if="visible" @close-panel="closePanel" :data="syncDevices"/>

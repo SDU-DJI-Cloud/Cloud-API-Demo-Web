@@ -1,6 +1,6 @@
 <template>
   <div class="flight-area-device-panel">
-    <Title title="Choose Synchronous Devices">
+    <Title title="选择同步设备">
       <div style="position: absolute; right: 10px;">
         <a style="color: white;" @click="closePanel"><CloseOutlined /></a>
       </div>

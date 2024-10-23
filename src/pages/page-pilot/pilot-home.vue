@@ -19,7 +19,7 @@
             </div>
             <a-drawer  placement="right" v-model:visible="drawerVisible" width="340px">
               <div class="mb10 flex-row flex-justify-center flex-align-center">
-                <p class="fz14" style="font-weight: 100;">Module State</p>
+                <p class="fz14" style="font-weight: 100;">模块状态</p>
               </div>
               <div class= "width-100 mb10 flex-align-start" v-for="m in modules" :key="m.name" style="height: 30px;">
 
@@ -27,8 +27,8 @@
                 <div class="ml10" style="float: right; margin-bottom: 8px;">
                   <span :key="m.state" :class="m.state.value === EStatusValue.CONNECTED ? 'green' : 'red'">{{ m.state.value }}&nbsp;</span>
                   <a-button-group >
-                  <a-button class="ml5" type="primary" size="small" @click.stop="moduleInstall(m)">install</a-button>
-                  <a-button class="ml5 mr5" type="danger" size="small" @click.stop="moduleUninstall(m)">uninstall</a-button>
+                  <a-button class="ml5" type="primary" size="small" @click.stop="moduleInstall(m)">安装</a-button>
+                  <a-button class="ml5 mr5" type="danger" size="small" @click.stop="moduleUninstall(m)">卸载</a-button>
                   </a-button-group>
                 </div>
                 <a-divider />
@@ -42,26 +42,26 @@
 
         <a-button id="exitBtn" class="fz18" @click="confirmAgain"
         style="width: 10vw; height: 10vh; position: fixed; bottom: 13vh; left: 15vw; background-color: #e6e6e6; color: red; border: 0;"
-        type="primary">Exit
+        type="primary">退出
         </a-button>
         <a-modal v-model:visible="exitVisible" width="300px" :closable="false">
           <template #footer>
-            <a-button type="text" style="width: 48%; float: left;" @click="onBack">Cancel</a-button>
-            <a-button type="text" style="width: 48%;" @click="onExit">Exit</a-button>
+            <a-button type="text" style="width: 48%; float: left;" @click="onBack">取消</a-button>
+            <a-button type="text" style="width: 48%;" @click="onExit">退出</a-button>
           </template>
-          <p>Data will not be synchronized between DJI Pilot and this server after exiting.</p>
+          <p>退出后，数据将不再同步至DJI Pilot与此服务器。</p>
         </a-modal>
       </div>
     </a-layout-sider>
     <a-layout-content class="right flex-column">
       <div class="mb5">
-        <span class="ml5" style="color: #939393;">Serial Number</span>
+        <span class="ml5" style="color: #939393;">序列号</span>
       </div>
       <div class="fz16" style="background-color: white; border-radius: 4px;">
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle">
           <a-col :span="1"></a-col>
             <a-col :span="9">
-            Remote Control Sn
+            遥控器序列号
             </a-col>
           <a-col :span="13" class="flex-align-end flex-column">
             <span style="color: #737373">{{ device.data.gateway_sn }}</span>
@@ -69,24 +69,24 @@
         </a-row>
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" v-if="device.data.online_status && device.data.sn">
           <a-col :span="1"></a-col>
-          <a-col :span="9">Aircraft Sn</a-col>
+          <a-col :span="9">飞行器序列号</a-col>
           <a-col :span="13" class="flex-align-end flex-column" >
             <span style="color: #737373">{{ device.data.sn }}</span>
           </a-col>
         </a-row>
       </div>
       <div class="mt5 mb5">
-        <span class="ml5" style="color: #939393;">Settings</span>
+        <span class="ml5" style="color: #939393;">设置</span>
       </div>
       <div class="fz16" style="background-color: white; border-radius: 4px;">
         <a-row v-if="device.data.online_status && device.data.sn" style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" @click="bindingDevice">
           <a-col :span="1"></a-col>
           <a-col :span="11">
-            Device Binding
+            设备绑定
           </a-col>
           <a-col :span="10" style="text-align: right">
-            <span v-if="device.data.bound_status" style="color: #737373">Aircraft bound</span>
-            <span v-else style="color: #737373">Aircraft not bound</span>
+            <span v-if="device.data.bound_status" style="color: #737373">飞行器已绑定</span>
+            <span v-else style="color: #737373">飞行器未绑定</span>
           </a-col>
           <a-col :span="2" class="flex-align-center flex-column" >
             <RightOutlined style="color: #8894a0; font-size: 20px;" />
@@ -95,7 +95,7 @@
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" @click="onMediaSetting">
           <a-col :span="1"></a-col>
           <a-col :span="21">
-            Media File Upload
+            媒体文件上传
           </a-col>
           <a-col :span="2" class="flex-align-center flex-column" >
             <RightOutlined style="color: #8894a0; font-size: 20px;" />
@@ -103,14 +103,14 @@
         </a-row>
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" @click="onLiveshareSetting">
           <a-col :span="1"></a-col>
-          <a-col :span="21">Livestream Manually</a-col>
+          <a-col :span="21">手动直播</a-col>
           <a-col :span="2" class="flex-align-center flex-column">
             <RightOutlined style="color: #8894a0; font-size: 20px;" />
           </a-col>
         </a-row>
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" @click="onOpen3rdApp">
           <a-col :span="1"></a-col>
-          <a-col :span="21">Open 3rd Party APP</a-col>
+          <a-col :span="21">打开第三方应用</a-col>
           <a-col :span="2" class="flex-align-center flex-column">
             <RightOutlined style="color: #8894a0; font-size: 20px;" />
           </a-col>

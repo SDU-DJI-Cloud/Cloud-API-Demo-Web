@@ -4,14 +4,14 @@
       style="width: 17vw; height: 10vw; margin-bottom: 50px"
       :src="djiLogo"
     />
-    <p class="logo fz35 pb50">Pilot Cloud API Demo</p>
+    <p class="logo fz35 pb50">山东大学无人机云平台</p>
     <a-form
       layout="inline"
       :model="formState"
       class="flex-row flex-justify-center flex-align-center"
     >
       <a-form-item>
-        <a-input v-model:value="formState.username" placeholder="Username">
+        <a-input v-model:value="formState.username" placeholder="用户名">
           <template #prefix
             ><UserOutlined style="color: rgba(0, 0, 0, 0.25)"
           /></template>
@@ -21,7 +21,7 @@
         <a-input
           v-model:value="formState.password"
           type="password"
-          placeholder="Password"
+          placeholder="密码"
         >
           <template #prefix
             ><LockOutlined style="color: rgba(0, 0, 0, 0.25)"
@@ -36,7 +36,7 @@
           :disabled="formState.user === '' || formState.password === ''"
           @click="onSubmit"
         >
-          Login
+          登录
         </a-button>
       </a-form-item>
     </a-form>
@@ -69,7 +69,7 @@ onMounted(async () => {
     return
   }
 
-  apiPilot.setPlatformMessage('Cloud Api Platform', '', '')
+  apiPilot.setPlatformMessage('云API平台', '', '')
 
   const token = localStorage.getItem(ELocalStorageKey.Token)
   if (token) {
@@ -81,7 +81,7 @@ onMounted(async () => {
         })
         const jsres = apiPilot.loadComponent(EComponentName.Api, apiPilot.getComponentParam(EComponentName.Api))
         if (!jsres) {
-          message.error('Failed to load api module.')
+          message.error('加载API模块失败。')
           return
         }
         apiPilot.setToken(res.data.access_token)
@@ -97,10 +97,10 @@ const onSubmit = async (e: any) => {
   await login(formState)
     .then(res => {
       if (!isVerified.value) {
-        message.error('Please verify the license firstly.')
+        message.error('请先验证许可证。')
         return
       }
-      console.log('login res:', res)
+      console.log('登录结果:', res)
       if (res.code === 0) {
         apiPilot.setComponentParam(EComponentName.Api, {
           host: CURRENT_CONFIG.baseURL,
@@ -110,14 +110,14 @@ const onSubmit = async (e: any) => {
           EComponentName.Api,
           apiPilot.getComponentParam(EComponentName.Api)
         )
-        console.log('load api module res:', jsres)
+        console.log('加载API模块结果:', jsres)
         apiPilot.setToken(res.data.access_token)
         localStorage.setItem(ELocalStorageKey.Token, res.data.access_token)
         localStorage.setItem(ELocalStorageKey.WorkspaceId, res.data.workspace_id)
         localStorage.setItem(ELocalStorageKey.UserId, res.data.user_id)
         localStorage.setItem(ELocalStorageKey.Username, res.data.username)
         localStorage.setItem(ELocalStorageKey.Flag, EUserType.Pilot.toString())
-        message.success('Login Success')
+        message.success('登录成功')
         root.$router.push(ERouterName.PILOT_HOME)
       }
     })
@@ -130,9 +130,9 @@ function verifyLicense () {
   isVerified.value = apiPilot.platformVerifyLicense(CURRENT_CONFIG.appId, CURRENT_CONFIG.appKey, CURRENT_CONFIG.appLicense) &&
     apiPilot.isPlatformVerifySuccess()
   if (isVerified.value) {
-    message.success('The license verification is successful.')
+    message.success('许可证验证成功。')
   } else {
-    message.error('Filed to verify the license. Please check license whether the license is correct, or apply again.')
+    message.error('许可证验证失败。请检查许可证是否正确，或重新申请。')
   }
 }
 </script>

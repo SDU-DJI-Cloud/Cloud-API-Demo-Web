@@ -1,19 +1,19 @@
 <template>
   <a-layout class="flex-display" style="height: 100vh; background-color: white;">
-  <div class="height100 width100 flex-column flex-justify-start flex-align-start">
-    <a-row class="pt20 pl20" style="height: 45px; width: 100vw" align="middle">
-      <a-col :span="1">
-        <span style="color: #1fa3f6" class="fz26"><SendOutlined rotate="90" /></span>
-      </a-col>
-      <a-col :span="20">
-        <span class="fz20 pl5">{{ drone.data.model }}</span>
-      </a-col>
-      <a-col :span="3">
-        <span class="fz16" v-if="drone.data.bound_status" style="color: #737373">Bound</span>
-        <a-button type="primary" @click="onBindDevice" v-else>Bind</a-button>
-      </a-col>
-    </a-row>
-  </div>
+    <div class="height100 width100 flex-column flex-justify-start flex-align-start">
+      <a-row class="pt20 pl20" style="height: 45px; width: 100vw" align="middle">
+        <a-col :span="1">
+          <span style="color: #1fa3f6" class="fz26"><SendOutlined rotate="90" /></span>
+        </a-col>
+        <a-col :span="20">
+          <span class="fz20 pl5">{{ drone.data.model }}</span>
+        </a-col>
+        <a-col :span="3">
+          <span class="fz16" v-if="drone.data.bound_status" style="color: #737373">已绑定</span>
+          <a-button type="primary" @click="onBindDevice" v-else>绑定</a-button>
+        </a-col>
+      </a-row>
+    </div>
   </a-layout>
 </template>
 
@@ -43,7 +43,7 @@ function onBindDevice () {
   }
   bindDevice(bindParam).then(bindRes => {
     if (bindRes.code !== 0) {
-      message.error('bind failed:' + bindRes.message)
+      message.error('绑定失败: ' + bindRes.message)
       console.error(bindRes.message)
       return
     }

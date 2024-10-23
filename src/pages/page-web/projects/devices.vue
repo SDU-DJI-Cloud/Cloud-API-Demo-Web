@@ -4,7 +4,7 @@
       飞行器
     </a-menu-item>
     <a-menu-item :key="EDeviceTypeName.Dock">
-      大疆云台
+      大疆机场
     </a-menu-item>
   </a-menu>
   <div class="device-table-wrap table flex-display flex-column">

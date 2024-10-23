@@ -10,7 +10,7 @@
     </div>
     <div class="scrollbar" :style="{ height: scorllHeight + 'px'}">
       <a-collapse :bordered="false" expandIconPosition="right" accordion style="background: #232323;">
-        <a-collapse-panel :key="EDeviceTypeName.Dock" header="云台" style="border-bottom: 1px solid #4f4f4f;">
+        <a-collapse-panel :key="EDeviceTypeName.Dock" header="机场" style="border-bottom: 1px solid #4f4f4f;">
           <div v-if="onlineDocks.data.length === 0" style="height: 150px; color: white;">
             <a-empty :image="noData" :image-style="{ height: '60px' }" />
           </div>

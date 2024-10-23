@@ -1,7 +1,7 @@
 <template>
   <div class="project-flight-area-wrapper height-100">
     <a-spin :spinning="loading" :delay="300" tip="loading" size="large" class="height-100">
-      <Title title="Custom Flight Area" />
+      <Title title="自定义飞行区域" />
       <FlightAreaPanel :data="flightAreaList" @location-area="clickArea" @delete-area="deleteAreaById"/>
       <DividerLine />
       <FlightAreaSyncPanel />
