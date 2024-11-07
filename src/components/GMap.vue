@@ -110,19 +110,19 @@
             <a-row>
               <a-col span="6">
                 <a-tooltip title="Horizontal Speed">
-                  <span>H.S</span>
+                  <span>水平速度</span>
                   <span class="ml10">{{ deviceInfo.device.horizontal_speed === str ? str : deviceInfo.device.horizontal_speed.toFixed(2) + ' m/s'}}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
                 <a-tooltip title="Vertical Speed">
-                  <span>V.S</span>
+                  <span>垂直速度</span>
                   <span class="ml10">{{ deviceInfo.device.vertical_speed === str ? str : deviceInfo.device.vertical_speed.toFixed(2) + ' m/s'}}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
                 <a-tooltip title="Wind Speed">
-                  <span>W.S</span>
+                  <span>风速</span>
                   <span class="ml10">{{ deviceInfo.device.wind_speed === str ? str : (deviceInfo.device.wind_speed / 10).toFixed(2) + ' m/s'}}</span>
                 </a-tooltip>
               </a-col>

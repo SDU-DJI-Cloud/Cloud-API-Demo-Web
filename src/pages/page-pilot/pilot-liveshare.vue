@@ -142,58 +142,58 @@ import { CaretRightFilled } from '@ant-design/icons-vue'
 const root = getRoot()
 
 const publishModeList = [
-{
-  value: EVideoPublishType.VideoOnDemand,
-  label: EVideoPublishType.VideoOnDemand
-},
-{
-  value: EVideoPublishType.VideoByManual,
-  label: EVideoPublishType.VideoByManual
-},
-{
-  value: EVideoPublishType.VideoDemandAuxManual,
-  label: EVideoPublishType.VideoDemandAuxManual
-}
+  {
+    value: EVideoPublishType.VideoOnDemand,
+    label: EVideoPublishType.VideoOnDemand
+  },
+  {
+    value: EVideoPublishType.VideoByManual,
+    label: EVideoPublishType.VideoByManual
+  },
+  {
+    value: EVideoPublishType.VideoDemandAuxManual,
+    label: EVideoPublishType.VideoDemandAuxManual
+  }
 ]
 const liveTypeList = [
-{
-  value: ELiveTypeValue.Agora,
-  label: ELiveTypeName.Agora
-},
-{
-  value: ELiveTypeValue.RTMP,
-  label: ELiveTypeName.RTMP
-},
-{
-  value: ELiveTypeValue.RTSP,
-  label: ELiveTypeName.RTSP
-},
-{
-  value: ELiveTypeValue.GB28181,
-  label: ELiveTypeName.GB28181
-}
+  {
+    value: ELiveTypeValue.Agora,
+    label: ELiveTypeName.Agora
+  },
+  {
+    value: ELiveTypeValue.RTMP,
+    label: ELiveTypeName.RTMP
+  },
+  {
+    value: ELiveTypeValue.RTSP,
+    label: ELiveTypeName.RTSP
+  },
+  {
+    value: ELiveTypeValue.GB28181,
+    label: ELiveTypeName.GB28181
+  }
 ]
 const agoraParam = reactive({
-uid: '2892130292',
-token: config.agoraToken,
-channelId: config.agoraChannel
+  uid: '2892130292',
+  token: config.agoraToken,
+  channelId: config.agoraChannel
 })
 const rtmpParam = {
-url: config.rtmpURL + new Date().getTime()
+  url: config.rtmpURL + new Date().getTime()
 }
 const rtspParam: RTSPParam = {
-userName: CURRENT_CONFIG.rtspUserName,
-password: CURRENT_CONFIG.rtspPassword,
-port: CURRENT_CONFIG.rtspPort
+  userName: CURRENT_CONFIG.rtspUserName,
+  password: CURRENT_CONFIG.rtspPassword,
+  port: CURRENT_CONFIG.rtspPort
 }
 const gb28181Param: GB28181Param = {
-serverIp: CURRENT_CONFIG.gbServerIp,
-serverPort: CURRENT_CONFIG.gbServerPort,
-serverId: CURRENT_CONFIG.gbServerId,
-agentId: CURRENT_CONFIG.gbAgentId,
-password: CURRENT_CONFIG.gbPassword,
-agentPort: CURRENT_CONFIG.gbAgentPort,
-agentChannel: CURRENT_CONFIG.gbAgentChannel,
+  serverIp: CURRENT_CONFIG.gbServerIp,
+  serverPort: CURRENT_CONFIG.gbServerPort,
+  serverId: CURRENT_CONFIG.gbServerId,
+  agentId: CURRENT_CONFIG.gbAgentId,
+  password: CURRENT_CONFIG.gbPassword,
+  agentPort: CURRENT_CONFIG.gbAgentPort,
+  agentChannel: CURRENT_CONFIG.gbAgentChannel,
 }
 
 const playVisiable = ref(false)
@@ -202,131 +202,131 @@ const liveState = ref(EStatusValue.DISCONNECT)
 const liveTypeSelected = ref<string>()
 const publishModeSelected = ref<string>()
 const liveStreamStatus: LiveStreamStatus = reactive({
-audioBitRate: -1,
-dropRate: -1,
-fps: -1,
-jitter: -1,
-quality: -1,
-rtt: -1,
-status: -1,
-type: -1,
-videoBitRate: -1
+  audioBitRate: -1,
+  dropRate: -1,
+  fps: -1,
+  jitter: -1,
+  quality: -1,
+  rtt: -1,
+  status: -1,
+  type: -1,
+  videoBitRate: -1
 })
 
 onMounted(() => {
-const config: LiveConfigParam = JSON.parse(apiPilot.getLiveshareConfig())
-liveStreamStatus.type = config.type
-refreshLiveType()
+  const config: LiveConfigParam = JSON.parse(apiPilot.getLiveshareConfig())
+  liveStreamStatus.type = config.type
+  refreshLiveType()
 
-window.liveStatusCallback = arg => {
-  liveStatusCallback(arg)
-}
+  window.liveStatusCallback = arg => {
+    liveStatusCallback(arg)
+  }
 })
 
 const liveStatusCallback = async (arg: LiveStreamStatus) => {
-liveStreamStatus.fps = arg.fps
-liveStreamStatus.audioBitRate = arg.audioBitRate
-liveStreamStatus.dropRate = arg.dropRate
-liveStreamStatus.jitter = arg.jitter
-liveStreamStatus.rtt = arg.rtt
-liveStreamStatus.videoBitRate = arg.videoBitRate
-liveStreamStatus.quality = arg.quality
-liveStreamStatus.type = arg.type
-liveStreamStatus.status = arg.status
+  liveStreamStatus.fps = arg.fps
+  liveStreamStatus.audioBitRate = arg.audioBitRate
+  liveStreamStatus.dropRate = arg.dropRate
+  liveStreamStatus.jitter = arg.jitter
+  liveStreamStatus.rtt = arg.rtt
+  liveStreamStatus.videoBitRate = arg.videoBitRate
+  liveStreamStatus.quality = arg.quality
+  liveStreamStatus.type = arg.type
+  liveStreamStatus.status = arg.status
 
-switch (liveStreamStatus.status) {
-  case ELiveStatusValue.LIVING:
-    liveState.value = EStatusValue.LIVING
-    break
-  case ELiveStatusValue.CONNECTED:
-    liveState.value = EStatusValue.CONNECTED
-    break
-  default:
-    liveState.value = EStatusValue.DISCONNECT
-}
+  switch (liveStreamStatus.status) {
+    case ELiveStatusValue.LIVING:
+      liveState.value = EStatusValue.LIVING
+      break
+    case ELiveStatusValue.CONNECTED:
+      liveState.value = EStatusValue.CONNECTED
+      break
+    default:
+      liveState.value = EStatusValue.DISCONNECT
+  }
 }
 function refreshLiveType () {
-switch (liveStreamStatus.type) {
-  case ELiveTypeValue.Agora:
-    liveTypeSelected.value = ELiveTypeName.Agora
-    break
-  case ELiveTypeValue.RTMP:
-    liveTypeSelected.value = ELiveTypeName.RTMP
-    break
-  case ELiveTypeValue.RTSP:
-    liveTypeSelected.value = ELiveTypeName.RTSP
-    break
-  case ELiveTypeValue.GB28181:
-    liveTypeSelected.value = ELiveTypeName.GB28181
-    break
-  default:
-    liveTypeSelected.value = ELiveTypeName.Unknown
-}
+  switch (liveStreamStatus.type) {
+    case ELiveTypeValue.Agora:
+      liveTypeSelected.value = ELiveTypeName.Agora
+      break
+    case ELiveTypeValue.RTMP:
+      liveTypeSelected.value = ELiveTypeName.RTMP
+      break
+    case ELiveTypeValue.RTSP:
+      liveTypeSelected.value = ELiveTypeName.RTSP
+      break
+    case ELiveTypeValue.GB28181:
+      liveTypeSelected.value = ELiveTypeName.GB28181
+      break
+    default:
+      liveTypeSelected.value = ELiveTypeName.Unknown
+  }
 }
 const onLiveTypeSelect = (val: number) => {
-liveStreamStatus.type = val
-refreshLiveType()
+  liveStreamStatus.type = val
+  refreshLiveType()
 }
 const onPublishModeSelect = (val: string) => {
-publishModeSelected.value = val
-apiPilot.setVideoPublishType(publishModeSelected.value)
+  publishModeSelected.value = val
+  apiPilot.setVideoPublishType(publishModeSelected.value)
 }
 const onPlay = () => {
-console.info(JSON.stringify(agoraParam))
-if (!publishModeSelected.value) {
-  message.warn('请选择发布模式！')
-  return
-}
-if (liveTypeSelected.value === ELiveTypeName.Unknown) {
-  message.warn('请选择直播类型！')
-  return
-}
-switch (liveStreamStatus.type) {
-  case 1: {
-    apiPilot.setLiveshareConfig(ELiveTypeValue.Agora, JSON.stringify(agoraParam))
-    break
+  console.info(JSON.stringify(agoraParam))
+  if (!publishModeSelected.value) {
+    message.warn('请选择发布模式！')
+    return
   }
-  case 2: {
-    apiPilot.setLiveshareConfig(ELiveTypeValue.RTMP, JSON.stringify(rtmpParam))
-    break
+  if (liveTypeSelected.value === ELiveTypeName.Unknown) {
+    message.warn('请选择直播类型！')
+    return
   }
-  case 3: {
-    apiPilot.setLiveshareConfig(ELiveTypeValue.RTSP, JSON.stringify(rtspParam))
-    break
+  switch (liveStreamStatus.type) {
+    case 1: {
+      apiPilot.setLiveshareConfig(ELiveTypeValue.Agora, JSON.stringify(agoraParam))
+      break
+    }
+    case 2: {
+      apiPilot.setLiveshareConfig(ELiveTypeValue.RTMP, JSON.stringify(rtmpParam))
+      break
+    }
+    case 3: {
+      apiPilot.setLiveshareConfig(ELiveTypeValue.RTSP, JSON.stringify(rtspParam))
+      break
+    }
+    case 4: {
+      apiPilot.setLiveshareConfig(ELiveTypeValue.GB28181, JSON.stringify(gb28181Param))
+      break
+    }
   }
-  case 4: {
-    apiPilot.setLiveshareConfig(ELiveTypeValue.GB28181, JSON.stringify(gb28181Param))
-    break
+  const status = apiPilot.startLiveshare()
+  if (status) {
+    playVisiable.value = true
+    drawerVisible.value = true
+    message.success('成功')
   }
-}
-const status = apiPilot.startLiveshare()
-if (status) {
-  playVisiable.value = true
-  drawerVisible.value = true
-  message.success('成功')
-}
 }
 
 const showLivingStatus = () => {
-drawerVisible.value = !drawerVisible.value
+  drawerVisible.value = !drawerVisible.value
 }
 
 const onStop = () => {
-const status = apiPilot.stopLiveshare()
-if (status) {
-  message.success('成功')
-  playVisiable.value = false
-  drawerVisible.value = false
-  setTimeout(() => {
-    let key: (keyof LiveStreamStatus)
-    for (key in liveStreamStatus) {
-      if (key === 'type') {
-        continue
+  const status = apiPilot.stopLiveshare()
+  if (status) {
+    message.success('成功')
+    playVisiable.value = false
+    drawerVisible.value = false
+    setTimeout(() => {
+      let key: (keyof LiveStreamStatus)
+      for (key in liveStreamStatus) {
+        if (key === 'type') {
+          continue
+        }
+        liveStreamStatus[key] = -1
       }
-      liveStreamStatus[key] = -1
-    }
-  }, 2000)
-}
+    }, 2000)
+  }
 }
 </script>
 
